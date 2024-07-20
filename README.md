@@ -8,10 +8,19 @@ Second subscriber utilizes .py libs (__________________) to visualize data.
 Third subscriber analyzes data (also via .py libs ____________) for standard deviation, mean, median, etc.
 
 FEATURES / CHARACTERISTICS: 
-GUI: ________ Python libs: _____________ Communication: ZMQ (tcp, PUB-SUB) Database: MongoDB Language of programming: C, .py Build tool: CMake
+GUI: ________ 
+Python libs: _____________ 
+C library for HTTP requests: curl
+Communication: ZMQ (tcp, PUB-SUB) 
+Database: MongoDB 
+Language of programming: C, .py 
+Build tool: CMake
 
 INSTALLATION 
-To install the project on your computer, you need to build zmq C library (I installed using vcpkg manager). 
-You need to have CMake. (in the project root, run these commands in this order: mkdir build; cd build; cmake ..; cmake --build . --config Release)
-You might get an error when trying to launch either one of the built binaries that libzmq-mt-4_3_5.dll is missing. 
-Locate it in you vcpkg folder and copy to the same directory as the executable to resolve the error. 
+1. To install the project on your computer, you need to build zmq C library (I installed using vcpkg manager). 
+2. Use CMake (in the project root, run these commands in this order: mkdir build; cd build; cmake ..; cmake --build . --config Release)
+3. Download & build the curl library (awesome Windows guide here: https://www.youtube.com/watch?v=q_mXVZ6VJs4). 
+4. You might get an error when trying to launch either one of the built binaries that libzmq-mt-4_3_5.dll is missing. Locate it in you vcpkg folder and copy to the same directory as the executable to resolve the error. 
+
+NOTES
+1. The project was designed to be platform agnostic, as all tools and libraries are such. However, at the current moment it was only tested on Windows in Release Mode. 

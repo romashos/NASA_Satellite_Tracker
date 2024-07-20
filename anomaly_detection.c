@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include "custom.h"
+#include "cJSON.h"
+#include "curl/curl.h"
 
 int main() {
     void* context = zmq_ctx_new();
