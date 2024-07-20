@@ -35,8 +35,6 @@ int main() {
     //setup curl & get satellite data
     CURL* curl;
     CURLcode res;
-    char* query_result = NULL;
-    size_t query_result_len = 0;
 
     curl = curl_easy_init();
     if (curl) {
