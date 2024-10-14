@@ -1,4 +1,0 @@
-C:/Users/sophi/Documents/education/Professional_Specialization/UdemyZMQ/_ZMQ_PROG3/build/CMakeFiles/requester.dir
-C:/Users/sophi/Documents/education/Professional_Specialization/UdemyZMQ/_ZMQ_PROG3/build/CMakeFiles/responder.dir
-C:/Users/sophi/Documents/education/Professional_Specialization/UdemyZMQ/_ZMQ_PROG3/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/sophi/Documents/education/Professional_Specialization/UdemyZMQ/_ZMQ_PROG3/build/CMakeFiles/ZERO_CHECK.dir

@@ -1,6 +1,0 @@
-C:\Users\sophi\Documents\education\Professional_Specialization\UdemyZMQ\_ZMQ_PROG1\build\Release\libzmq-mt-4_3_5.dll
-C:\Users\sophi\Documents\education\Professional_Specialization\UdemyZMQ\_ZMQ_PROG1\build\requester.dir\Release\requester.vcxproj.CopyComplete
-C:\Users\sophi\Documents\education\Professional_Specialization\UdemyZMQ\_ZMQ_PROG2\build\Release\libzmq-mt-4_3_5.dll
-C:\Users\sophi\Documents\education\Professional_Specialization\UdemyZMQ\_ZMQ_PROG2\build\requester.dir\Release\requester.vcxproj.CopyComplete
-C:\Users\sophi\Documents\education\Professional_Specialization\UdemyZMQ\_ZMQ_PROG3\build\Release\libzmq-mt-4_3_5.dll
-C:\Users\sophi\Documents\education\Professional_Specialization\UdemyZMQ\_ZMQ_PROG3\build\requester.dir\Release\requester.vcxproj.CopyComplete
