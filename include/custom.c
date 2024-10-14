@@ -278,7 +278,7 @@ Satellite* raw_data_decomposer() {
 
     cJSON *json = cJSON_Parse(satellite_data_str);
     if (json == NULL) {
-        fprintf(stderr, "Error parsing JSON\n");
+        fprintf(stderr, "Error parsing JSON while creating a satellite struct \n");
     }
 
     cJSON* id = cJSON_GetObjectItem(json, "satelliteId");

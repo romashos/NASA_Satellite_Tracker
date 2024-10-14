@@ -629,7 +629,7 @@ char* process_json_for_label_text(char* string, char* parameter) {
 
     cJSON* json = cJSON_Parse(string);
     if (json == NULL) {
-        logger("Error parsing JSON");
+        logger("Error parsing JSON for label");
         return NULL;
     }
 
@@ -683,7 +683,7 @@ char* process_json_for_label_text(char* string, char* parameter) {
             extracted_str = "NORSAT II";
             break;
         default:
-            extracted_str = "wtf";
+            extracted_str = "ERROR";
             break;
         }
     }
