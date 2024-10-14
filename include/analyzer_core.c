@@ -1234,7 +1234,7 @@ void download_txt(GtkWidget* arrow_button, gpointer user_data) {
 
     char* name = process_json_for_label_text(satellite_full_str, "Name");
 
-    if (strstr != "UNKNOWN") {
+    if (strstr(name, "UNKNOWN") != NULL) {
         no_sat_data_found_alert_modal(window);
     }
     else {
@@ -1282,7 +1282,7 @@ void download_xml(GtkWidget* arrow_button, gpointer user_data) {
 
     char* name = process_json_for_label_text(satellite_full_str, "Name");
 
-    if (strstr != "UNKNOWN") {
+    if (strstr(name, "UNKNOWN") != NULL) {
         no_sat_data_found_alert_modal(window);
     }
     else {
