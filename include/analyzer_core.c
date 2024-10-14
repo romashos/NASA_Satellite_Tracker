@@ -391,7 +391,7 @@ char* satellite_query(enum SatelliteKey key) {
     bson_error_t error;
     const bson_t* reply;
     mongoc_cursor_t* cursor;
-    const bson_t* doc;
+    bson_t* doc;
     bson_t* filter;
     char* str = "{ \
                   \"_id\": { \
@@ -496,9 +496,9 @@ char* satellite_query(enum SatelliteKey key) {
     table = create_hash_table();
     if (opts == NULL) {
 
-        if (mongoc_cursor_next(cursor, &document)) {
+        if (mongoc_cursor_next(cursor, &doc)) {
             do {
-                str = bson_as_canonical_extended_json(document, NULL);
+                str = bson_as_canonical_extended_json(doc, NULL);
                 if (str != NULL) {
                     insert(table, str);
                     bson_free(str); 
@@ -507,7 +507,7 @@ char* satellite_query(enum SatelliteKey key) {
                     logger("Error retrieving data from database - null JSON string.");
                 }
 
-            } while (mongoc_cursor_next(cursor, &document));
+            } while (mongoc_cursor_next(cursor, &doc));
 
             if (mongoc_cursor_error_document(cursor, &error, &reply)) {
                 str = bson_as_json(reply, NULL);
@@ -530,9 +530,14 @@ char* satellite_query(enum SatelliteKey key) {
     else {
 
         if (mongoc_cursor_next(cursor, &doc)) {
-            while (mongoc_cursor_next(cursor, &doc)) {
+
+            do {
                 str = bson_as_canonical_extended_json(doc, NULL);
+                if (str == NULL) {
+                    logger("Error retrieving data from database - null JSON string.");
             }
+            } while (mongoc_cursor_next(cursor, &doc));
+
         } else {
             if (mongoc_cursor_error_document(cursor, &error, &reply)) {
                 str = bson_as_json(reply, NULL);
