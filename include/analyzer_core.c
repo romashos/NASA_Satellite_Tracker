@@ -1286,6 +1286,8 @@ void download_txt(GtkWidget* arrow_button, gpointer user_data) {
             logger("Error opening file to save satellite data in txt format.");
         }
 
+        fprintf(file, "Last captured satellite data for the selected time period \n");
+
         char parameters[9][15] = { "Name", "Satellite ID", "Longitude", "Latitude", "Altitude", "Azimuth", "Elevation", "Right Ascension", "Declination" };
         foreach(char* param, parameters) {
 
@@ -1330,6 +1332,7 @@ void download_xml(GtkWidget* arrow_button, gpointer user_data) {
         }
 
         fprintf(file, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\n");
+        fprintf(file, "<Last captured satellite data for the selected time period>\n");
         fprintf(file, "<satellite>\n");
 
         char parameters[9][15] = { "Name", "Satellite ID", "Longitude", "Latitude", "Altitude", "Azimuth", "Elevation", "Right Ascension", "Declination" };
