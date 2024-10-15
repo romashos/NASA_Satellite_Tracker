@@ -630,7 +630,24 @@ char* process_json_for_label_text(char* string, char* parameter) {
     cJSON* json = cJSON_Parse(string);
     if (json == NULL) {
         logger("Error parsing JSON for label");
-        return NULL;
+
+        char* str = "{ \
+                  \"_id\": { \
+                    \"$oid\": \"0\" \
+                  }, \
+                  \"Name\": \"UNKNOWN\", \
+                  \"Satellite ID\": \"00000\", \
+                  \"Latitude\": \"0.0\", \
+                  \"Longitude\": \"0.0\", \
+                  \"Altitude\": \"0.0\", \
+                  \"Azimuth\": \"0.0\", \
+                  \"Elevation\": \"0.0\", \
+                  \"Right Ascension\": \"0.0\", \
+                  \"Declination\": \"0.0\", \
+                  \"Registered\": \"0\" \
+                }";
+
+        json = cJSON_Parse(str);
     }
 
     cJSON* value = cJSON_GetObjectItemCaseSensitive(json, parameter);
