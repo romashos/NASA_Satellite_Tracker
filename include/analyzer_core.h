@@ -162,7 +162,7 @@ void download_pdf(GtkWidget* arrow_button, gpointer user_data);
 // If the most recent satellite data is not available for download, a warning pops up
 void no_sat_data_found_alert_modal(GtkWindow* parent);
 
-static void draw_position_dot_for_pdf(cairo_surface_t* image, char* text_longitude, char* text_latitude,
+static void draw_position_dot_for_pdf(char* text_longitude, char* text_latitude,
     cairo_t* cr, double image_x, double image_y, double image_width, double image_height);
 
 #endif

@@ -1362,6 +1362,8 @@ void download_pdf(GtkWidget* arrow_button, gpointer user_data) {
     if (cairo_surface_status(image) != CAIRO_STATUS_SUCCESS) {
         logger("Error loading image - check filepath!");
     }
+    cairo_set_source_surface(cr, image, image_x, image_y);
+    cairo_rectangle(cr, image_x, image_y, image_width, image_height);
 
     if (satellite_plot_flag == MAP) {
 
@@ -1389,7 +1391,7 @@ void download_pdf(GtkWidget* arrow_button, gpointer user_data) {
                             char* text_longitude = process_json_for_label_text(entry->key, "Longitude");
                             char* text_latitude = process_json_for_label_text(entry->key, "Latitude");
 
-                            draw_position_dot_for_pdf(image, text_longitude, text_latitude,
+                            draw_position_dot_for_pdf(text_longitude, text_latitude,
                                 cr, image_x, image_y, image_width, image_height);
 
                             break;
@@ -1408,7 +1410,7 @@ void download_pdf(GtkWidget* arrow_button, gpointer user_data) {
             char* text_longitude = process_json_for_label_text(satellite_full_str, "Longitude");
             char* text_latitude = process_json_for_label_text(satellite_full_str, "Latitude");
 
-            draw_position_dot_for_pdf(image, text_longitude, text_latitude,
+            draw_position_dot_for_pdf(text_longitude, text_latitude,
                 cr, image_x, image_y, image_width, image_height);
         }
     }
@@ -1525,12 +1527,10 @@ void no_sat_data_found_alert_modal(GtkWindow* parent)
     gtk_widget_show_all(dialog);
 }
 
-static void draw_position_dot_for_pdf(cairo_surface_t* image, char* text_longitude, char* text_latitude,
+static void draw_position_dot_for_pdf(char* text_longitude, char* text_latitude,
     cairo_t* cr, double image_x, double image_y, double image_width, double image_height) {
 
-    // Draw the image
-    cairo_set_source_surface(cr, image, image_x, image_y);
-    cairo_rectangle(cr, image_x, image_y, image_width, image_height);
+    // Draw position dot
     cairo_clip(cr);
     cairo_paint(cr);
     cairo_reset_clip(cr);
