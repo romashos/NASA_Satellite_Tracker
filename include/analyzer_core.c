@@ -1444,7 +1444,7 @@ void download_pdf(GtkWidget* arrow_button, gpointer user_data) {
         }
     }
     else {
-
+        show_position_data = false;
         char* plot_name;
         switch (satellite_plot_flag) {
         case HIST:
