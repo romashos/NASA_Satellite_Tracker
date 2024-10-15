@@ -1367,6 +1367,7 @@ void download_pdf(GtkWidget* arrow_button, gpointer user_data) {
 
     //Filename
     char* name = process_json_for_label_text(satellite_full_str, "Name");
+    bool show_position_data = false;
 
     char filename[25];
     snprintf(filename, strlen(name) + 5, "%s.pdf", name);
@@ -1433,6 +1434,7 @@ void download_pdf(GtkWidget* arrow_button, gpointer user_data) {
         }
         else {
 
+            show_position_data = true;
             logger("Single satellite position is being recorded in pdf.");
             char* text_longitude = process_json_for_label_text(satellite_full_str, "Longitude");
             char* text_latitude = process_json_for_label_text(satellite_full_str, "Latitude");
@@ -1491,23 +1493,33 @@ void download_pdf(GtkWidget* arrow_button, gpointer user_data) {
 
     char* extracted_val = NULL;
     y_position = 725;
-    char parameters[9][15] = { "Name", "Satellite ID", "Longitude", "Latitude", "Altitude", "Azimuth", "Elevation", "Right Ascension", "Declination" };
-    foreach(char* param, parameters) {
-        extracted_val = process_json_for_label_text(satellite_full_str, param);
-        char full_str[100]; 
-        if (extracted_val == NULL) {
-            logger("Error processing parameter.");
-            continue;
+
+    char full_str[100];
+    snprintf(full_str, sizeof(full_str), "Satellite positions displayed for period: %s", get_time_period(date_flag));
+    cairo_move_to(cr, x_position, y_position);
+    cairo_show_text(cr, full_str);
+    y_position += 50;
+
+    cairo_select_font_face(cr, "Mono", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+
+    if (show_position_data == true) {
+        char parameters[9][15] = { "Name", "Satellite ID", "Longitude", "Latitude", "Altitude", "Azimuth", "Elevation", "Right Ascension", "Declination" };
+        foreach(char* param, parameters) {
+            extracted_val = process_json_for_label_text(satellite_full_str, param);
+            char full_str[100];
+            if (extracted_val == NULL) {
+                logger("Error processing parameter.");
+                continue;
+            }
+
+            snprintf(full_str, sizeof(full_str), "%s: %s", param, extracted_val);
+
+            cairo_move_to(cr, x_position, y_position);
+            cairo_show_text(cr, full_str);
+            y_position += 25;
+
+            free(extracted_val);
         }
-
-        snprintf(full_str, sizeof(full_str), "%s: %s", param, extracted_val);
-
-        cairo_select_font_face(cr, "Mono", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
-        cairo_move_to(cr, x_position, y_position);
-        cairo_show_text(cr, full_str);
-        y_position += 25; 
-
-        free(extracted_val);
     }
 
     y_position = 1625;

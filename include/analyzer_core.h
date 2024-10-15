@@ -68,7 +68,7 @@ enum Date {
     YEAR
 };
 
-int date_flag;
+int date_flag; // tracks date selected throughout the project
 
 enum SatelliteKey {
     ISS,
