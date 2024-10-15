@@ -145,39 +145,49 @@ void on_combo_box_change_date(GtkComboBox* combo_box, gpointer user_data) {
     satellite_full_str = "";
     free_hash_table(table);
 
-    gchar* active_text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_box));
+    gchar* active_date_text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_box));
 
-    if (active_text != NULL) {
-        gchar* text_to_display = g_hash_table_lookup(combo_text_map, active_text);
+    if (active_date_text != NULL) {
+        gchar* text_to_display = g_hash_table_lookup(combo_text_map, active_date_text);
         if (text_to_display != NULL) {
             gtk_label_set_text(GTK_LABEL(date_text), text_to_display);
 
             if (strcmp(text_to_display, get_time_period(TODAY))==0) {
                 date_flag = TODAY;
+                gtk_label_set_text(GTK_LABEL(sat_position_display_explained), "The most recent satellite position recorded is displayed.");
                 logger("Registered date flag: TODAY");
             }
             else if (strstr(text_to_display, get_time_period(YESTERDAY))) {
                 date_flag = YESTERDAY;
+                gtk_label_set_text(GTK_LABEL(sat_position_display_explained), "The most recent satellite position recorded is displayed.");
                 logger("Registered date flag: YESTERDAY");
             }
             else if (strstr(text_to_display, get_time_period(WEEK))) {
                 date_flag = WEEK;
+                gtk_label_set_text(GTK_LABEL(sat_position_display_explained), "");
                 logger("Registered date flag: WEEK");
             }
             else if (strstr(text_to_display, get_time_period(MONTH))) {
                 date_flag = MONTH;
+                gtk_label_set_text(GTK_LABEL(sat_position_display_explained), "");
                 logger("Registered date flag: MONTH");
             }
             else if (strstr(text_to_display, get_time_period(YEAR))) {
                 date_flag = YEAR;
+                gtk_label_set_text(GTK_LABEL(sat_position_display_explained), "");
                 logger("Registered date flag: YEAR");
             }
             else {
                 date_flag = TODAY;
+                gtk_label_set_text(GTK_LABEL(sat_position_display_explained), "The most recent satellite position recorded is displayed.");
                 logger("Registered date flag: TODAY");
             }
+
+            gtk_label_set_line_wrap(GTK_LABEL(sat_position_display_explained), TRUE);
+            gtk_label_set_max_width_chars(GTK_LABEL(sat_position_display_explained), 35);
+            gtk_widget_modify_font(sat_position_display_explained, font_desc);
         }
-        g_free(active_text);
+        g_free(active_date_text);
     }
 
     switch (satellite_flag) {
@@ -241,8 +251,6 @@ void on_combo_box_change_date(GtkComboBox* combo_box, gpointer user_data) {
 
    // Draw new position markings
     calculate_and_draw_position_markings();
-
-    free_hash_table(table);
 }
 
 void on_combo_box_change_satellite(GtkComboBox* satellite_combo_box, gpointer user_data) {
@@ -260,8 +268,6 @@ void on_combo_box_change_satellite(GtkComboBox* satellite_combo_box, gpointer us
 
     // Draw new position markings
     calculate_and_draw_position_markings();
-
-    free_hash_table(table);
 }
   
 void switch_visual(GtkWidget* arrow_button, gpointer user_data) {
@@ -538,7 +544,7 @@ char* satellite_query(enum SatelliteKey key) {
                 str = bson_as_canonical_extended_json(doc, NULL);
                 if (str == NULL) {
                     logger("Error retrieving data from database - null JSON string.");
-            }
+                }
             } while (mongoc_cursor_next(cursor, &doc));
 
         } else {
@@ -1173,7 +1179,6 @@ static char* generate_plot_image(enum Plot plot_type)
             break;
         }
 
-        free_hash_table(table);
         Py_XDECREF(p_Module);
     }
     else {

@@ -51,6 +51,8 @@ GtkWidget* button_left2;
 GtkWidget* button_right2;
 GtkWidget* image;
 
+GtkWidget* sat_position_display_explained;
+
 char* satellite_full_str;
 HashTable* table;
 HashTable* python_table;
@@ -89,6 +91,8 @@ enum Plot {
     DECL_AND_ALT_CORR,   // Correlation between the declination angle and altitude of the satellite
     MAP
 };
+
+PangoFontDescription* font_desc;
 
 int satellite_flag;
 int satellite_plot_flag;

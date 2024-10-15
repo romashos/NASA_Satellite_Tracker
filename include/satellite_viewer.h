@@ -11,7 +11,6 @@
 
 static void activate(GtkApplication* app, gpointer user_data) {
 
-    //GtkWidget* window = gtk_application_window_new(app);
     window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "Satellite Viewer");
     gtk_window_set_default_size(GTK_WINDOW(window), 1200, 600);
@@ -22,8 +21,8 @@ static void activate(GtkApplication* app, gpointer user_data) {
     gtk_container_add(GTK_CONTAINER(window), hbox);
 
     // Create a vertical box for the dropdowns and buttons
-    GtkWidget* vbox_main = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20); // coo coo
-    GtkWidget* vbox1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20); // the cause of all evil is here at 20
+    GtkWidget* vbox_main = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20); 
+    GtkWidget* vbox1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20); 
 
     gtk_box_pack_start(GTK_BOX(hbox), vbox1, FALSE, FALSE, 20);
 
@@ -61,7 +60,7 @@ static void activate(GtkApplication* app, gpointer user_data) {
     satellite_text_lat = gtk_label_new(text);
     gtk_box_pack_start(GTK_BOX(vbox1), satellite_text_lat, FALSE, FALSE, 0);
 
-    gtk_box_pack_start(GTK_BOX(vbox_main), vbox1, FALSE, FALSE, 0); // coo coo
+    gtk_box_pack_start(GTK_BOX(vbox_main), vbox1, FALSE, FALSE, 0);
 
     // Create and add the second dropdown
     GtkWidget* date_combo_box = gtk_combo_box_text_new();
@@ -76,8 +75,14 @@ static void activate(GtkApplication* app, gpointer user_data) {
     // Create and add a label to display text below the date combo box
     date_text = gtk_label_new(get_time_period(TODAY));
     gtk_box_pack_start(GTK_BOX(vbox1), date_text, FALSE, FALSE, 0);
+    sat_position_display_explained = gtk_label_new("The most recent satellite position recorded is displayed.");
+    gtk_label_set_line_wrap(GTK_LABEL(sat_position_display_explained), TRUE);
+    gtk_label_set_max_width_chars(GTK_LABEL(sat_position_display_explained), 35);
+    font_desc = pango_font_description_from_string("Italic");
+    gtk_widget_modify_font(sat_position_display_explained, font_desc);
+    gtk_box_pack_start(GTK_BOX(vbox1), sat_position_display_explained, FALSE, FALSE, 0);
 
-    gtk_box_pack_start(GTK_BOX(vbox_main), vbox1, FALSE, FALSE, 0); // coo coo
+    gtk_box_pack_start(GTK_BOX(vbox_main), vbox1, FALSE, FALSE, 0);
 
     GtkWidget* vbox2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     image = gtk_image_new_from_file("../../assets/map.jpg");
@@ -96,10 +101,9 @@ static void activate(GtkApplication* app, gpointer user_data) {
     gtk_box_pack_start(GTK_BOX(button_box2), button_right2, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(vbox2), button_box2, FALSE, FALSE, 10);
 
-    gtk_box_pack_start(GTK_BOX(vbox_main), vbox2, FALSE, FALSE, 0); // coo coo
+    gtk_box_pack_start(GTK_BOX(vbox_main), vbox2, FALSE, FALSE, 0);
 
     // Add the vertical box with the image and second set of buttons to the main horizontal box
-    //gtk_box_pack_start(GTK_BOX(hbox), vbox2, TRUE, TRUE, 10);
     gtk_box_pack_start(GTK_BOX(hbox), vbox_main, TRUE, TRUE, 10);
 
     // Create a horizontal box for the buttons below the image
