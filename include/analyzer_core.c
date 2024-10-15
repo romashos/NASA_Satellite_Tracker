@@ -143,6 +143,8 @@ char* get_time_period(enum Date date) {
 void on_combo_box_change_date(GtkComboBox* combo_box, gpointer user_data) {
 
     satellite_full_str = "";
+    free_hash_table(table);
+
     gchar* active_text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_box));
 
     if (active_text != NULL) {
@@ -247,6 +249,7 @@ void on_combo_box_change_satellite(GtkComboBox* satellite_combo_box, gpointer us
 
     //Clean global satellite data holder for reuse
     satellite_full_str = "";
+    free_hash_table(table);
 
     //Deal with the satellite displayed text
     char* active_text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(satellite_combo_box));
@@ -887,6 +890,8 @@ static void calculate_and_draw_position_markings() {
 
 static char* generate_plot_image(enum Plot plot_type)
 {
+    free_hash_table(table);
+
     int previous_date_flag = date_flag;
     date_flag = YEAR;
 
