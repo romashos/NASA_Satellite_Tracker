@@ -139,7 +139,7 @@ void insert_into_collection(Collection col, Satellite* sat) {
         mongoc_collection_destroy(collection);
 
     } else if (col == EPH) {
-        logger("Line142");
+
         bson_t* doc;
         bson_oid_t oid;
         doc = bson_new();
@@ -231,7 +231,6 @@ Satellite* sat_struct_assembler() {
     while (token != NULL && token_count <= 6) {
         while (*token == ' ') token++;
         tokens[token_count] = token;
-        printf("Token: %s \n", token);
         token_count++;
         token = strtok(NULL, ",");
     }
