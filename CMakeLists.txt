@@ -141,18 +141,20 @@ find_library(ZMQ_LIBRARY NAMES libzmq-mt-4_3_5 HINTS "${PROJECT_SOURCE_DIR}/lib"
 find_library(PY_LIBRARY NAMES python312 HINTS "${PROJECT_SOURCE_DIR}/lib")
 
 # MESSAGE PUBLISHER
-target_link_libraries(message_publisher PUBLIC cjson ws2_32 iphlpapi Normaliz Wldap32 Crypt32 advapi32)
+target_link_libraries(message_publisher PUBLIC libzmq-mt-4_3_5 cjson ws2_32 iphlpapi Normaliz Wldap32 Crypt32 advapi32)
 target_include_directories(message_publisher PUBLIC "${PROJECT_SOURCE_DIR}/lib"
 												    "${PROJECT_SOURCE_DIR}/lib/curl"
-											        "${PROJECT_SOURCE_DIR}/include")
+											        "${PROJECT_SOURCE_DIR}/include"
+											        "${PROJECT_SOURCE_DIR}/vcpkg/installed/x64-windows/include")
 
 # DATABASE HANDLER
-target_link_libraries(mongo_app PUBLIC mongoc-1.0 bson-1.0 cjson ws2_32 iphlpapi Normaliz Wldap32 Crypt32 advapi32)
+target_link_libraries(mongo_app PUBLIC libzmq-mt-4_3_5 mongoc-1.0 bson-1.0 cjson ws2_32 iphlpapi Normaliz Wldap32 Crypt32 advapi32)
 target_include_directories(mongo_app PUBLIC "${PROJECT_SOURCE_DIR}/lib" 
 												   "${PROJECT_SOURCE_DIR}/lib/curl"
 												   "${PROJECT_SOURCE_DIR}/lib/mongo-c-driver-master/src/libmongoc/src/mongoc"
 												   "${PROJECT_SOURCE_DIR}/lib/mongo-c-driver-master/src/libbson/src/bson"
-												   "${PROJECT_SOURCE_DIR}/include")
+												   "${PROJECT_SOURCE_DIR}/include"
+                                                   "${PROJECT_SOURCE_DIR}/vcpkg/installed/x64-windows/include")
 
 # MESSAGE ANALYZER
 target_link_libraries(satellite_viewer PUBLIC cjson mongoc-1.0 bson-1.0 ws2_32 iphlpapi Normaliz Wldap32 Crypt32 advapi32 
